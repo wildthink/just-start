@@ -5,6 +5,9 @@ _default:
     @echo ""
     @just -f {{source_file()}} --list
 
+# Edit this file
+edit:
+	@just -e -f {{source_file()}}
 
 # Opens Just Online Reference
 man page='introduction':

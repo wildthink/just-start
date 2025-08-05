@@ -1,34 +1,72 @@
 module Workspace
 
-name = "Pkl: Configure your Systems in New Ways"
-owner = "Jason Jobe"
+name = "Workspace Configuration"
+owner = "Joni Appleseed"
 version = ""
+
+class Repo {
+	name: String
+	repo: String
+	version: String?
+	branch: String = "main"
+	docs: String?
+}
+
+class Tool {
+	name: String
+	install: String
+	docs: String?
+}
 
 Projects {
 }
 
 Packages {
-	new { 
+	new Repo { 
 		name = "Freebase"
 		repo = "https://github.com/wildthink/freebase"
 	}
-	new { 
+	new Repo { 
 		name = "Foundry"
 		repo = "https://github.com/wildthink/foundry"
 	}
-		new { 
+	new Repo { 
 		name = "Timeframes"
 		repo = "https://github.com/wildthink/timeframes"
 	}
+	new Repo { 
+		name = "Dossier"
+		repo = "https://github.com/wildthink/Dossier"
+	}
+	new Repo { 
+		name = "Nomenclature"
+		repo = "https://github.com/wildthink/Momenclature"
+	}
+	new Repo { 
+		name = "Venues"
+		repo = "https://github.com/wildthink/Venues"
+	}
 }
 
+ThirdParty {
+	new Repo { 
+		name = "swift-uuidev7"
+		repo = "https://github.com/mhayes853/swift-uuidv7.git"
+		version = "0.1.0"
+		docs = "https://swiftpackageindex.com/mhayes853/swift-uuidv7/main/documentation/uuidv7"
+	}
+}
+
+
 Tools {
-	new {
+	new Tool {
 		name = "pkl"
 		install = "brew install pkl"
+		docs = "https://pkl-lang.org/main/current/index.html"
 	}
-	new {
+	new Tool {
 		name = "jq"
 		install = "brew install jq"
+		docs = "https://jqlang.org/manual"
 	}
 }

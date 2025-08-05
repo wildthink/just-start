@@ -6,6 +6,9 @@ _default:
     @echo ""
     @just -f {{source_file()}} -n tools::install
 
+# Edit this file
+edit:
+	@just -e -f {{source_file()}}
 
 # Install Tools
 
