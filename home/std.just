@@ -3,7 +3,7 @@ _default:
     @echo '{{ style("warning") }}Standard Commands{{ NORMAL }}'
     @echo @{{source_file()}}
     @echo ""
-    @just --list
+    @just -f {{source_file()}} --list
 
 
 # Opens Just Online Reference

@@ -8,13 +8,17 @@ mod std 'home/std.just'
 mod tools 'home/tools.just'
 # GIT Module
 mod git 'home/git.just'
+# PKL Module
+mod pkl 'home/pkl.just'
+# Boot Module
+mod boot 'home/boot.just'
 
 # About Constellation Tools
 _default:
     @echo '{{ style("warning") }}Workspace Project Tool Commands{{ NORMAL }}'
-    @echo @{{justfile()}}
+    @echo @{{source_file()}}
     @echo ""
-    @just --list
+    @just -f {{source_file()}} --list
 
 set unstable
 

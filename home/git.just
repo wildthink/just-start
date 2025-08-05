@@ -3,7 +3,7 @@ _default:
     @echo '{{ style("warning") }}Git Commands{{ NORMAL }}'
     @echo @{{source_file()}}
     @echo ""
-    @just --list
+    @just -f {{source_file()}} --list
 
 # "git pull" foreach git repo in ./dir
 [no-cd]

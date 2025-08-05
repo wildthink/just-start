@@ -1,0 +1,34 @@
+module Workspace
+
+name = "Pkl: Configure your Systems in New Ways"
+owner = "Jason Jobe"
+version = ""
+
+Projects {
+}
+
+Packages {
+	new { 
+		name = "Freebase"
+		repo = "https://github.com/wildthink/freebase"
+	}
+	new { 
+		name = "Foundry"
+		repo = "https://github.com/wildthink/foundry"
+	}
+		new { 
+		name = "Timeframes"
+		repo = "https://github.com/wildthink/timeframes"
+	}
+}
+
+Tools {
+	new {
+		name = "pkl"
+		install = "brew install pkl"
+	}
+	new {
+		name = "jq"
+		install = "brew install jq"
+	}
+}
