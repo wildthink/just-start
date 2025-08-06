@@ -1,23 +1,23 @@
-# Workspace Justfile
+# Global Justfile
 # Coordinates the variety of useful scripts for
 # managing a Workspace of projects.
 
-# config := 'home'
+# config := "~/.config/just"
 
 # Standard Module
-mod std 'home/std.just'
+mod std '~/.config/just/std.just'
 # Tools Module
-mod tools 'home/tools.just'
+mod tools '~/.config/just/tools.just'
 # GIT Module
-mod git 'home/git.just'
+mod git '~/.config/just/git.just'
 # PKL Module
-mod pkl "home/pkl.just"
+mod pkl '~/.config/just/pkl.just'
 # Boot Module
-mod boot 'home/boot.just'
+mod boot '~/.config/just/boot.just'
 
 # About Constellation Tools
 _default:
-    @echo '{{ style("warning") }}Workspace Commands{{ NORMAL }}'
+    @echo '{{ style("warning") }}Global Commands{{ NORMAL }}'
     @echo @{{source_file()}}
     @echo ""
     @just -f {{source_file()}} --list

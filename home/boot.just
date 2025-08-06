@@ -8,6 +8,10 @@ _default:
 
 # for x in $(jq '.bag[]' conf.json); do echo $x; done
 
+# Edit this file
+edit:
+	@just -e -f {{source_file()}}
+
 # List the Bootstrap Manifest
 [no-cd]
 setup:

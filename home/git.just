@@ -5,6 +5,10 @@ _default:
     @echo ""
     @just -f {{source_file()}} --list
 
+# Edit this file
+edit:
+	@just -e -f {{source_file()}}
+
 # "git pull" foreach git repo in ./dir
 [no-cd]
 pull:
