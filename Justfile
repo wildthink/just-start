@@ -2,18 +2,10 @@
 # Coordinates the variety of useful scripts for
 # managing a Workspace of projects.
 
-# config := 'home'
+import 'config/modules.just'
 
-# Standard Module
-mod std 'home/std.just'
-# Tools Module
-mod tools 'home/tools.just'
-# GIT Module
-mod git 'home/git.just'
-# PKL Module
-mod pkl "home/pkl.just"
-# Boot Module
-mod boot 'home/boot.just'
+# Bood Module
+mod boot "config/boot.just"
 
 # About Constellation Tools
 _default:
@@ -21,6 +13,12 @@ _default:
     @echo @{{source_file()}}
     @echo ""
     @just -f {{source_file()}} --list
+
+# Workspace tree -L 2
+[no-cd]
+tree:
+   @echo '{{ style("warning") }}Workspace Commands{{ NORMAL }}'
+   tree -L 2
 
 set unstable
 

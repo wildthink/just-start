@@ -1,7 +1,7 @@
 module Workspace
 
 name = "Workspace Configuration"
-owner = "Joni Appleseed"
+owner = "Jason Jobe"
 version = ""
 
 class Repo {
@@ -19,6 +19,10 @@ class Tool {
 }
 
 Projects {
+	new Repo { 
+		name = "Improv"
+		repo = "https://github.com/wildthink/improv_ii"
+	}
 }
 
 Packages {
@@ -35,12 +39,20 @@ Packages {
 		repo = "https://github.com/wildthink/timeframes"
 	}
 	new Repo { 
+		name = "InterfaceBuilder"
+		repo = "https://github.com/wildthink/interface-builder"
+	}
+	new Repo { 
 		name = "Dossier"
 		repo = "https://github.com/wildthink/Dossier"
 	}
 	new Repo { 
+		name = "Rolodex"
+		repo = "https://github.com/wildthink/Rolodex"
+	}
+	new Repo { 
 		name = "Nomenclature"
-		repo = "https://github.com/wildthink/Momenclature"
+		repo = "https://github.com/wildthink/Nomenclature"
 	}
 	new Repo { 
 		name = "Venues"
@@ -68,5 +80,10 @@ Tools {
 		name = "jq"
 		install = "brew install jq"
 		docs = "https://jqlang.org/manual"
+	}
+	new Tool {
+		name = "tuist"
+		install = "brew install tuist"
+		docs = "https://docs.tuist.dev/en/"
 	}
 }
