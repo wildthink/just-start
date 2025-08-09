@@ -2,16 +2,8 @@
 # Coordinates the variety of useful scripts for
 # managing a Workspace of projects.
 
-# config := "~/.config/just"
+import 'config/modules.just'
 
-# Standard Module
-mod std '~/.config/just/std.just'
-# Tools Module
-mod tools '~/.config/just/tools.just'
-# GIT Module
-mod git '~/.config/just/git.just'
-# PKL Module
-mod pkl '~/.config/just/pkl.just'
 # Boot Module
 mod boot '~/.config/just/boot.just'
 

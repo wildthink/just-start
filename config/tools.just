@@ -4,7 +4,7 @@ _default:
     @echo @{{source_file()}}
     @echo "*Install with" '{{ style("warning") }}"just tools::install"{{ NORMAL }}'
     @echo ""
-    @just -f {{source_file()}} -n tools::install
+    @just -f {{source_file()}} -n install
 
 # Edit this file
 edit:

@@ -14,7 +14,11 @@ edit:
 
 # List the Bootstrap Manifest
 [no-cd]
-setup:
+list:
+  @echo Projects
+  @for row in `jq '.Projects[].name' config/space.json`; do \
+        echo " -" $row; \
+  done
   @echo Tools
   @for row in `jq '.Tools[].name' config/space.json`; do \
         echo " -" $row; \
@@ -24,16 +28,27 @@ setup:
         echo " -" $row; \
   done
 
+# Install Just files
+[group("Installs")]
+[no-cd]
+install-config:
+  cp config/dot.Justfile.config ~/.justfile
+  mkdir -pv ~/.config/just
+  cp config/*.just ~/.config/just/
+
+# Setup Workspace
+[group("Installs")]
+[no-cd]
+install-space:
+  cp Justfile.space ../Justfile
+  mkdir -pv ../config
+  cp -r config/*.just ../config/
+  cp -r pkls ../
+  just -f ../Justfile pkl workspace
+
 # Install the Tools
+[group("Installs")]
 [no-cd]
 install-tools:
   #!/usr/bin/env bash  
   jq -r '.Tools[].install' config/space.json | while IFS= read -r row; do bash -c "$row"; done
-
-# Install the Packages
-[no-cd]
-install-packages:
-  @echo Packages
-  @for row in `jq -r '.Packages[].repo' config/space.json`; do \
-        echo " -" $row; \
-  done
