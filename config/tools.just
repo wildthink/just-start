@@ -16,6 +16,6 @@ edit:
 
 # Install all the tools
 install:
-    brew install dasel
+    brew install jq
     brew install pkl
     brew install fzf
