@@ -1,7 +1,9 @@
 # pkl: Module
 
 dir := justfile_directory()
-config := justfile_directory()/"config"
+config := source_directory() + '/../'
+pkl_dir := config + "pkls"
+
 
 _default:
     @echo '{{ style("warning") }}PKL Commands{{ NORMAL }}'
@@ -23,8 +25,8 @@ man:
 
 # Pickle - PKL eval
 pickle file='workspace':
-    pkl eval -f json -o  '{{config}}/{{file}}.json' '{{config}}/pkls/{{file}}.pkl'
+    pkl eval -f json -o '{{config}}/{{file}}.json' '{{pkl_dir}}/{{file}}.pkl'
 
 # pkl-gen-swift pkl files
 swift file='workspace':
-    pkl-gen-swift  -o '{{dir}}/Generated' '{{config}}/pkls/{{file}}.pkl'
+    pkl-gen-swift  -o '{{dir}}/Generated' '{{pkl_dir}}/{{file}}.pkl'

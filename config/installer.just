@@ -32,9 +32,9 @@ repos dir:
   import json, subprocess as sp
   from pathlib import Path
 
-  JUST_DIR = Path("{{justfile_directory()}}").resolve()
+  JUST_DIR = Path("{{source_directory()}}").resolve()
   TARGET   = JUST_DIR / "{{dir}}"
-  CONFIG   = JUST_DIR / "config" / "workspace.json"
+  CONFIG   = JUST_DIR / "workspace.json"
   KEY      = "{{dir}}"  # JSON array key matches the dir param
 
   def run(*args, check=False, **kw):
@@ -82,7 +82,7 @@ repos dir:
       if not path.exists():
         print(f"Cloning {name}")
         # NOTE: Shallow clone (depth=1) for efficiency
-        r = run("git","-C","--depth=1",str(TARGET),"clone",url)
+        r = run("git","-C",str(TARGET),"clone","--depth=1",url)
         if r.returncode != 0:
           print(f"  Clone failed for {name}: {r.stderr.strip() or r.stdout.strip()}")
           continue

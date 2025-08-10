@@ -23,10 +23,6 @@ tree:
 my_dir_name := file_name(justfile_directory())
 my_config := file_name(justfile_directory())
 
-foo:
-	@echo {{my_dir_name}}
-
-
 # Setup Workspace
 [group("Installs")]
 [no-cd]
