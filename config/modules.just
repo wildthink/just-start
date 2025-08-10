@@ -1,7 +1,7 @@
 # Standard Module
 mod std 'std.just'
-# Tools Module
-mod tools 'tools.just'
+# Installer Module
+mod installer 'installer.just'
 # GIT Module
 mod git 'git.just'
 # PKL Module

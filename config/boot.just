@@ -12,19 +12,21 @@ _default:
 edit:
 	@just -e -f {{source_file()}}
 
+ws := '../workspace.json'
+
 # List the Bootstrap Manifest
 [no-cd]
 list:
   @echo Projects
-  @for row in `jq '.Projects[].name' config/space.json`; do \
+  @for row in `jq '.Projects[].name' {{ws}}`; do \
         echo " -" $row; \
   done
   @echo Tools
-  @for row in `jq '.Tools[].name' config/space.json`; do \
+  @for row in `jq '.Tools[].name' {{ws}}`; do \
         echo " -" $row; \
   done
   @echo Packages
-  @for row in `jq '.Packages[].name' config/space.json`; do \
+  @for row in `jq '.Packages[].name' {{ws}}`; do \
         echo " -" $row; \
   done
 
@@ -40,15 +42,11 @@ install-config:
 [group("Installs")]
 [no-cd]
 install-space:
-  cp Justfile.space ../Justfile
-  mkdir -pv ../config
-  cp -r config/*.just ../config/
-  cp -r pkls ../
-  just -f ../Justfile pkl workspace
+  sed 's/__CONFIG__/{{file_name(justfile_directory())}}/g' Justfile.space > ../Justfile
 
 # Install the Tools
 [group("Installs")]
 [no-cd]
 install-tools:
   #!/usr/bin/env bash  
-  jq -r '.Tools[].install' config/space.json | while IFS= read -r row; do bash -c "$row"; done
+  jq -r '.Tools[].install' {{ws}} | while IFS= read -r row; do bash -c "$row"; done

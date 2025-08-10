@@ -1,0 +1,64 @@
+# Workspace Justfile
+# Coordinates the variety of useful scripts for
+# managing a Workspace of projects.
+
+import "__CONFIG__/config/modules.just"
+
+# About Constellation Tools
+_default:
+    @echo '{{ style("warning") }}Workspace Commands{{ NORMAL }}'
+    @echo @{{source_file()}}
+    @echo ""
+    @just -f {{source_file()}} --list
+
+# Search Tools & Package
+[no-cd]
+[group("Help")]
+info subject:
+  @just std info {{subject}}
+
+# Documentation
+[no-cd]
+[group("Help")]
+docs subject:
+  @just std docs {{subject}}
+
+# Just Manual
+[no-cd]
+[group("Help")]
+man page='introduction':
+  @just std man {{page}}
+
+# Workspace tree -L 2
+[no-cd]
+[group("Help")]
+tree:
+   @echo '{{ style("warning") }}Workspace Commands{{ NORMAL }}'
+   tree -L 2
+
+# List the Bootstrap Manifest
+[no-cd]
+[group("Help")]
+list:
+  @echo Projects
+  @for row in `jq '.Projects[].name' config/space.json`; do \
+        echo " -" $row; \
+  done
+  @echo Tools
+  @for row in `jq '.Tools[].name' config/space.json`; do \
+        echo " -" $row; \
+  done
+  @echo Packages
+  @for row in `jq '.Packages[].name' config/space.json`; do \
+        echo " -" $row; \
+  done
+
+# Install the Projects
+[group("Installs")]
+[no-cd]
+install-projects: (installer::repos "Projects")
+
+# Install the Packages
+[group("Installs")]
+[no-cd]
+install-packages: (installer::repos "Packages")

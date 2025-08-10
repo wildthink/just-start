@@ -1,79 +1,40 @@
-# Workspace Justfile
-# Coordinates the variety of useful scripts for
-# managing a Workspace of projects.
-
-import "config/modules.just"
-
-# About Constellation Tools
+# installer: Module
 _default:
-    @echo '{{ style("warning") }}Workspace Commands{{ NORMAL }}'
+    @echo '{{ style("warning") }}Install Commands{{ NORMAL }}'
     @echo @{{source_file()}}
+    @echo "*Install with" '{{ style("warning") }}"just tools::install"{{ NORMAL }}'
     @echo ""
-    @just -f {{source_file()}} --list
+    @just -f {{source_file()}} -n install
 
-# Search Tools & Package
-[no-cd]
-[group("Help")]
-info subject:
-  @just std info {{subject}}
+# Edit this file
+edit:
+	@just -e -f {{source_file()}}
 
-# Documentation
-[no-cd]
-[group("Help")]
-docs subject:
-  @just std docs {{subject}}
+# Install Tools
 
-# Just Manual
-[no-cd]
-[group("Help")]
-man page='introduction':
-  @just std man {{page}}
+# FIXME: pre-check, pkl list
 
-# Workspace tree -L 2
-[no-cd]
-[group("Help")]
-tree:
-   @echo '{{ style("warning") }}Workspace Commands{{ NORMAL }}'
-   tree -L 2
-
-# List the Bootstrap Manifest
-[no-cd]
-[group("Help")]
-list:
-  @echo Projects
-  @for row in `jq '.Projects[].name' config/space.json`; do \
-        echo " -" $row; \
-  done
-  @echo Tools
-  @for row in `jq '.Tools[].name' config/space.json`; do \
-        echo " -" $row; \
-  done
-  @echo Packages
-  @for row in `jq '.Packages[].name' config/space.json`; do \
-        echo " -" $row; \
-  done
-
-# Install the Projects
-[group("Installs")]
-[no-cd]
-install-projects: (install-repos "Projects")
-
-# Install the Packages
-[group("Installs")]
-[no-cd]
-install-packages: (install-repos "Packages")
+# Install using brew if missing
+brew TOOL:
+	#!/bin/bash
+	if which {{TOOL}} >/dev/null 2>&1; then
+	    echo "{{TOOL}} is installed and in PATH."
+	else
+	    echo "{{TOOL}} is NOT installed or not in PATH."
+	    brew install {{TOOL}}
+	fi
 
 # Install the Repos
 [group("Installs")]
 [no-cd]
-install-repos dir:
+repos dir:
   #!/usr/bin/env -S python3 -u
   import json, subprocess as sp
   from pathlib import Path
 
   JUST_DIR = Path("{{justfile_directory()}}").resolve()
   TARGET   = JUST_DIR / "{{dir}}"
-  CONFIG   = JUST_DIR / "config" / "space.json"
+  CONFIG   = JUST_DIR / "config" / "workspace.json"
   KEY      = "{{dir}}"  # JSON array key matches the dir param
 
   def run(*args, check=False, **kw):
@@ -120,7 +81,8 @@ install-repos dir:
       # Clone if missing
       if not path.exists():
         print(f"Cloning {name}")
-        r = run("git","-C",str(TARGET),"clone",url)
+        # NOTE: Shallow clone (depth=1) for efficiency
+        r = run("git","-C","--depth=1",str(TARGET),"clone",url)
         if r.returncode != 0:
           print(f"  Clone failed for {name}: {r.stderr.strip() or r.stdout.strip()}")
           continue

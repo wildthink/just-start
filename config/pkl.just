@@ -9,9 +9,6 @@ _default:
     @echo ""
     @just -f {{source_file()}} -l
 
-foo:
-  echo {{config}}
-
 # Edit this file
 edit:
 	@just -e -f {{source_file()}}
@@ -25,9 +22,9 @@ man:
   @open "https://pkl-lang.org/main/current/index.html"
 
 # Pickle - PKL eval
-pickle file='main':
-    pkl eval -f json -o  '{{config}}/space.json' '{{config}}/pkls/workspace.pkl'
+pickle file='workspace':
+    pkl eval -f json -o  '{{config}}/{{file}}.json' '{{config}}/pkls/{{file}}.pkl'
 
 # pkl-gen-swift pkl files
 swift file='workspace':
-    pkl-gen-swift  -o '{{dir}}/Generated' '{{config}}/pkls/workspace.pkl'
+    pkl-gen-swift  -o '{{dir}}/Generated' '{{config}}/pkls/{{file}}.pkl'

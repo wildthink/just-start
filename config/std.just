@@ -13,11 +13,13 @@ edit:
 man page='introduction':
     @open https://just.systems/man/en/{{page}}.html
 
+ws := source_directory()/'../workspace.json'
+
 # Open Tools & Package Docs
 [no-cd]
 docs subject:
   #!/bin/bash
-  jq -r '.Tools[]|select(.name=="{{subject}}")|.docs' config/space.json | while IFS= read -r row; do \
+  jq -r '.Tools[]|select(.name=="{{subject}}")|.docs' {{ws}} | while IFS= read -r row; do \
     open "$row";  done
 
 # Open Tools & Package Docs
@@ -26,11 +28,11 @@ info subject:
   #!/bin/bash
   echo Searching for ".*{{subject}}.*"
   echo Projects...
-  jq -r '.Projects[]|select(.name|test(".*{{subject}}.*"; "i"))' config/space.json | while IFS= read -r row; do \
+  jq -r '.Projects[]|select(.name|test(".*{{subject}}.*"; "i"))' {{ws}} | while IFS= read -r row; do \
     echo "$row";  done
   echo Packages...
-  jq -r '.Packages[]|select(.name|test(".*{{subject}}.*"; "i"))' config/space.json | while IFS= read -r row; do \
+  jq -r '.Packages[]|select(.name|test(".*{{subject}}.*"; "i"))' {{ws}} | while IFS= read -r row; do \
     echo "$row";  done
   echo Tools...
-  jq -r '.Tools[]|select(.name|test(".*{{subject}}.*"; "i"))' config/space.json | while IFS= read -r row; do \
+  jq -r '.Tools[]|select(.name|test(".*{{subject}}.*"; "i"))' {{ws}} | while IFS= read -r row; do \
     echo "$row";  done
