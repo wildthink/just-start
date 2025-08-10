@@ -23,17 +23,24 @@ tree:
 my_dir_name := file_name(justfile_directory())
 my_config := file_name(justfile_directory())
 
+foo:
+	@echo {{my_dir_name}}
+
 
 # Setup Workspace
 [group("Installs")]
 [no-cd]
-install-space: install-pkl
+install-space: install-pkl install-jq
   sed 's/__CONFIG__/{{my_dir_name}}/g' templates/Justfile.space > ../Justfile
   pkl eval -f json -o  workspace.json pkls/workspace.pkl
 
 # Install pkl if missing
 [group("Installs")]
 install-pkl: (installer::brew "pkl")
+
+# Install jq if missing
+[group("Installs")]
+install-jq: (installer::brew "jq")
 
 # Install the Tools
 [group("Installs")]
@@ -50,4 +57,3 @@ bosh := which("bosh")
     echo "bosh: '{{bosh}}'"
     echo "just: '{{which("just")}}'"
     echo "brew: '{{which("brew")}}'"
-

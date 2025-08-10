@@ -17,6 +17,12 @@ _default:
 info subject:
   @just std info {{subject}}
 
+# Workspace Manifest
+[no-cd]
+[group("Help")]
+list:
+  @just std list
+
 # Documentation
 [no-cd]
 [group("Help")]
@@ -36,22 +42,6 @@ tree:
    @echo '{{ style("warning") }}Workspace Commands{{ NORMAL }}'
    tree -L 2
 
-# List the Bootstrap Manifest
-[no-cd]
-[group("Help")]
-list:
-  @echo Projects
-  @for row in `jq '.Projects[].name' config/space.json`; do \
-        echo " -" $row; \
-  done
-  @echo Tools
-  @for row in `jq '.Tools[].name' config/space.json`; do \
-        echo " -" $row; \
-  done
-  @echo Packages
-  @for row in `jq '.Packages[].name' config/space.json`; do \
-        echo " -" $row; \
-  done
 
 # Install the Projects
 [group("Installs")]

@@ -36,3 +36,20 @@ info subject:
   echo Tools...
   jq -r '.Tools[]|select(.name|test(".*{{subject}}.*"; "i"))' {{ws}} | while IFS= read -r row; do \
     echo "$row";  done
+
+# Workspace Manifest
+[no-cd]
+[group("Help")]
+list:
+  @echo Projects
+  @for row in `jq '.Projects[].name' {{ws}}`; do \
+        echo " -" $row; \
+  done
+  @echo Tools
+  @for row in `jq '.Tools[].name' {{ws}}`; do \
+        echo " -" $row; \
+  done
+  @echo Packages
+  @for row in `jq '.Packages[].name' {{ws}}`; do \
+        echo " -" $row; \
+  done
